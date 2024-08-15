@@ -1,0 +1,14 @@
+# Pythonの仮想環境ディレクトリ
+venv/
+
+# Pythonのキャッシュファイル
+__pycache__/
+*.pyc
+*.pyo
+
+# IDEやエディタの設定ファイル
+.vscode/
+.idea/
+
+# 環境設定ファイル
+.env
