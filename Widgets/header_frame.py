@@ -3,27 +3,30 @@ import tkinter as tk
 from typing import Tuple
 import os
 
-from style_manager import FontSettings,StyleManager
+from services.style_manager import FontSettings,StyleManager
 
 class HeaderFrame(ctk.CTkFrame):
-    def __init__(self, master:tk.Frame, header_name:str="HeaderFrame", **kwargs):
+    def __init__(self, master:tk.Frame, title:str="HeaderFrame", **kwargs):
         super().__init__(master, **kwargs)
         
+        #フォント設定
         self.header_font:Tuple = FontSettings.HEADER_TITLE.value
         self.font:Tuple = FontSettings.DEFAULT.value
-        self.header_name = header_name
+        
+        # フレームタイトル設定
+        self.title = title
 
         # フォームのセットアップをする
         self.create_widgets()
 
     def create_widgets(self):
-        # 行方向のマスのレイアウトを設定する。リサイズしたときに一緒に拡大したい行をweight 1に設定。
+        # 行方向のマスのレイアウトを設定する。
         self.grid_rowconfigure(0, weight=1)
         # 列方向のマスのレイアウトを設定する
         self.grid_columnconfigure(2, weight=2)
 
         # フレームのラベルを表示
-        self.label = ctk.CTkLabel(self, text=self.header_name, font=self.header_font)
+        self.label = ctk.CTkLabel(self, text=self.title, font=self.header_font)
         self.label.grid(row=1, column=0, padx=(20,100), pady=30, sticky="w")
 
         # 検索の入力
@@ -36,7 +39,7 @@ class HeaderFrame(ctk.CTkFrame):
         self.search_btn.grid(row=1, column=4, padx=10, pady=30)
         
         # フィルターボタン
-        self.filter_btn = ctk.CTkButton(master=self, text="フィルター", command=self.filter_btn_callback, **StyleManager.INLINE_BTN_STYLE)
+        self.filter_btn = ctk.CTkButton(master=self, text="フィルター", command=self.filter_btn_callback, **StyleManager.inline_btn)
         self.filter_btn.grid(row=1, column=5, padx=(10,20), pady=30)
 
     def search_btn_callback(self, data):

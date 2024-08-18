@@ -4,15 +4,14 @@ from typing import Tuple
 
 from .datalist_frame import DataListFrame
 from .info_frame import InfoFrame
-from style_manager import FontSettings
-
+from services.style_manager import FontSettings,StyleManager
     
 # メインコンテンツのフレーム
 class ContentFrame(ctk.CTkFrame):
-    def __init__(self, master:tk.Frame, header_name:str="HeaderFrame", **kwargs):
+    def __init__(self, master:tk.Frame, title:str="HeaderFrame", **kwargs):
         super().__init__(master, **kwargs)
         # ヘッダー名設定
-        self.header_name = header_name
+        self.title = title
         #文字フォント設定
         self.title_font:Tuple = FontSettings.FRAME_TITLE.value
         # フォームのセットアップをする
@@ -25,7 +24,7 @@ class ContentFrame(ctk.CTkFrame):
         self.grid_columnconfigure(0, weight=2)
         
         # フレームのラベルを表示
-        self.label = ctk.CTkLabel(self, text=self.header_name, font=self.title_font)
+        self.label = ctk.CTkLabel(self, text=self.title, font=self.title_font)
         self.label.grid(row=0, column=0, padx=0, pady=(10,0), sticky="w")
         
         # プロジェクト一覧
@@ -33,5 +32,5 @@ class ContentFrame(ctk.CTkFrame):
         self.datalist_frame = DataListFrame(self, title="Values", values=values)
         self.datalist_frame.grid(row=1, column=0, padx=5, pady=(10, 0), sticky="nsew")
         
-        self.info_frame = InfoFrame(self, header_name="プロジェクト情報")
+        self.info_frame = InfoFrame(self, title="プロジェクト情報")
         self.info_frame.grid(row=1, column=1, padx=(10,20), pady=10, sticky="nwe")

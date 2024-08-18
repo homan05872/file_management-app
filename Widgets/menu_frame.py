@@ -3,14 +3,14 @@ import tkinter as tk
 from typing import Tuple
 from functools import partial
 
-from style_manager import FontSettings
+from services.style_manager import FontSettings,StyleManager
 
 # メニュー用フレーム
 class MenuFrame(ctk.CTkFrame):
-    def __init__(self, master:tk.Frame, header_name:str="MenuFrame", **kwargs):
+    def __init__(self, master:tk.Frame, title:str="MenuFrame", **kwargs):
         super().__init__(master, **kwargs)
         
-        self.header_name:str = header_name
+        self.title:str = title
         self.title_font:Tuple = FontSettings.FRAME_TITLE.value
         self.menu_font:Tuple = FontSettings.MENU.value
         self.menu_items = ["プロジェクト一覧", "オプション"]
@@ -24,7 +24,7 @@ class MenuFrame(ctk.CTkFrame):
         self.grid_columnconfigure(1, weight=1)
         
         # フレームのラベルを表示
-        self.title = ctk.CTkLabel(self, text=self.header_name, font=self.title_font)
+        self.title = ctk.CTkLabel(self, text=self.title, font=self.title_font)
         self.title.grid(row=0, column=0, padx=65, pady=10, sticky="nsew")
         
         # メニュー一覧を表示
